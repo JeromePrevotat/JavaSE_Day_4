@@ -1,4 +1,6 @@
 package com.humanbooster.exercices;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Livre {
     // - Attributs :
@@ -8,8 +10,11 @@ public class Livre {
     public int anneePubli;
     public boolean dispo;
 
+    private final Map<String, Object> args = new HashMap<>();
+
     public Livre(String isbn, String titre, String auteur, int anneePubli, boolean dispo){
-        errorHandler();
+        init(isbn, titre, dispo);
+        errorHandler(args);
         this.isbn = isbn;
         this.titre = titre;
         this.auteur = auteur;
@@ -17,14 +22,18 @@ public class Livre {
         this.dispo = dispo;
     }
 
-    private void errorHandler(... args[]) throws IllegalArgumentException {
-        if (this.isbn.equals("")) throw new IllegalArgumentException("Error: ISBN cannot not be Empty");
-        if (this.titre.equals("")) throw new IllegalArgumentException("Error: Titre cannot not be Empty");
-        if (this.dispo != true && this.dispo != false) throw new IllegalArgumentException("Error: Dispo must be true or false");
+    private void init(String isbn, String titre, boolean dispo){
+        args.put("isbn", isbn);
+        args.put("titre", titre);
+        args.put("dispo", dispo);
     }
 
-    public void errorHandler(String isbn, <Object> ... auteur){
-
+    private void errorHandler(Map<String, Object> args) throws IllegalArgumentException {
+        args.forEach((k,v) -> {
+            if (k.equals("isbn") && (v.equals("") || v == null)) throw new IllegalArgumentException("Error: ISBN cannot not be Empty");
+            if (k.equals("titre") && (v.equals("") || v == null)) throw new IllegalArgumentException("Error: Titre cannot not be Empty");
+            if (k.equals("dispo") && (v == null)) throw new IllegalArgumentException("Error: Dispo must be true or false");
+        });
     }
 
     // GETTER
@@ -50,12 +59,12 @@ public class Livre {
 
     // SETTER
     public void setIsbn(String isbn){
-        errorHandler();
+        errorHandler(Map.of("isbn", isbn));
         this.isbn = isbn;
     }
     
     public void setTitre(String titre){
-        errorHandler();
+        errorHandler(Map.of("titre", titre));
         this.titre = titre;
     }
 
@@ -68,6 +77,7 @@ public class Livre {
     }
 
     public void setIsbn(boolean dispo){
+        errorHandler(Map.of("dispo", dispo));
         this.dispo = dispo;
     }
 
