@@ -22,6 +22,7 @@ public class Livre {
         this.dispo = dispo;
     }
 
+    // Error Handler
     private void init(String isbn, String titre, boolean dispo){
         args.put("isbn", isbn);
         args.put("titre", titre);
@@ -76,12 +77,25 @@ public class Livre {
         this.anneePubli = anneePubli;
     }
 
-    public void setIsbn(boolean dispo){
+    public void setDispo(boolean dispo){
         errorHandler(Map.of("dispo", dispo));
         this.dispo = dispo;
     }
 
-    // - equals() et hashCode() basés sur l'ISBN
+    // METHODS
+    @Override
+    public boolean equals(Object l){
+        if (l instanceof Livre){
+            if (this.isbn.hashCode() == ((Livre) l).isbn.hashCode()) return true;
+        }
+        else throw new IllegalArgumentException("Error: Passer un Livre en parametre.");
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        return ("ISBN: " + this.isbn + "\nTitre: " + this.titre + "\nAuteur: " + this.auteur + "\nPublication: " + this.anneePubli + "\nDisponible " + this.dispo + "\n");
+    }
     // - toString() pour l'affichage
 
 }
