@@ -6,7 +6,7 @@ public class Livre {
     // - Attributs :
     public String isbn;
     public String titre;
-    public String auteur;
+    public String auteur = "Anonyme";
     public int anneePubli;
     public boolean dispo;
 
@@ -17,7 +17,7 @@ public class Livre {
         errorHandler(args);
         this.isbn = isbn;
         this.titre = titre;
-        this.auteur = auteur;
+        if (!auteur.equals("")) this.auteur = auteur;
         this.anneePubli = anneePubli;
         this.dispo = dispo;
     }
@@ -27,6 +27,9 @@ public class Livre {
         args.put("isbn", isbn);
         args.put("titre", titre);
         args.put("dispo", dispo);
+        args.forEach((k,v) -> {
+            System.out.println("K: " + k + "\nV: " + v);
+        });
     }
 
     private void errorHandler(Map<String, Object> args) throws IllegalArgumentException {

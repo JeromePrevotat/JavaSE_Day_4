@@ -10,8 +10,13 @@ public class App {
         Livre l5 = new Livre("5", "EEE", "eee", 2000, true);
         Livre l6 = new Livre("3", "CCC", "ccc", 2000, true);
         Livre l7 = new Livre("3", "CCC", "ccc", 2000, true);
-
         Livre l8 = new Livre("6", "H2G2", "Douglas Adams", 2000, true);
+
+        //Aberrants
+        // Livre l9 = new Livre("", "H2G2", "Douglas Adams", 2000, true);
+        // Livre l10 = new Livre("10", "", "Douglas Adams", 2000, true);
+        Livre l11 = new Livre("11", "H2G2", "", 2000, true);
+        Livre l12 = new Livre("12", "H2G2", "Douglas Adams", 2000, true);
 
         Bibliotheque b = new Bibliotheque();
         b.ajouterLivre(l1);
@@ -21,6 +26,11 @@ public class App {
         b.ajouterLivre(l5);
         b.ajouterLivre(l6);
         b.ajouterLivre(l7);
+
+        // Aberant
+        // b.ajouterLivre(l9);
+        // b.ajouterLivre(l10);
+        b.ajouterLivre(l11);
 
         b.rechercherLivre(l3).forEach((livre) -> {
             System.out.println(livre.toString());
