@@ -19,37 +19,58 @@ public class Bibliotheque {
     // public void supprimerLivre(Livre l){
         // livres.removeIf((livre) -> livre.equals(l));
     public boolean supprimerLivre(String isbn){
-        Livre livre = livres.stream()
-                .filter(l -> l.getIsbn().equals(isbn))
-                .findFirst()
-                .orElse(null);
+        Livre livre = rechercherLivre(isbn);
         if (livre == null) return false;
         return livres.remove(livre);
     }
 
-    public List<Livre> rechercherLivre(Livre l){
-        List<Livre> exemplaires = new ArrayList<>();
+    // public List<Livre> rechercherLivre(Livre l){
+    //     List<Livre> exemplaires = new ArrayList<>();
       
-        // if (livres.contains(l)) exemplaires.add(l);
+    //     // if (livres.contains(l)) exemplaires.add(l);
        
-        livres.forEach((livre) -> {
-             if (livre.isbn.equals(l.isbn)) exemplaires.add(livre);
-        });
+    //     livres.forEach((livre) -> {
+    //          if (livre.isbn.equals(l.isbn)) exemplaires.add(livre);
+    //     });
 
-        return exemplaires;
+    //     return exemplaires;
+    // }
+
+    public Livre rechercherLivre(String isbn){
+        return livres.stream()
+                .filter(l -> l.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(null);
     }
 
-    public void emprunterLivre(Livre l){
-        if (l.getDispo() == true){
-            emprunts.put(l.getIsbn(), LocalDate.now());
-            l.setDispo(false);
-        }
-        else System.out.println("Le Livre n'est pas disponible");
+    // public void emprunterLivre(Livre l){
+    //     if (l.getDispo() == true){
+    //         emprunts.put(l.getIsbn(), LocalDate.now());
+    //         l.setDispo(false);
+    //     }
+    //     else System.out.println("Le Livre n'est pas disponible");
+    // }
+
+    public boolean emprunterLivre(String isbn){
+        Livre livre = rechercherLivre(isbn);
+        if (livre == null || !livre.dispo || emprunts.containsKey(isbn)) return false;
+        emprunts.put(isbn, LocalDate.now());
+        livre.setDispo(false);
+        return true;
     }
 
-    public void rendreLivre(Livre l){
-        emprunts.remove(l.isbn);
-        l.setDispo(true);
+    // public void rendreLivre(Livre l){
+    //     emprunts.remove(l.isbn);
+    //     l.setDispo(true);
+    // }
+
+    public boolean rendreLivre(String isbn){
+        if (!emprunts.containsKey(isbn)) return false;
+        Livre livre = rechercherLivre(isbn);
+        if (livre == null) return false;
+        livre.setDispo(true);
+        emprunts.remove(isbn);
+        return true;
     }
 
     public List<Livre> getLivresDisponibles(){
