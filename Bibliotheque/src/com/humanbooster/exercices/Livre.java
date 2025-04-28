@@ -1,6 +1,6 @@
 package com.humanbooster.exercices;
-import java.util.HashMap;
-import java.util.Map;
+import com.humanbooster.exception.BibliothequeException;
+import com.humanbooster.exception.DonneesInvalidesException;
 import java.util.Objects;
 
 public class Livre {
@@ -11,26 +11,19 @@ public class Livre {
     public int anneePubli;
     public boolean dispo;
 
-    private final Map<String, Object> args = new HashMap<>();
-
     public Livre(String isbn, String titre, String auteur, int anneePubli, boolean dispo){
-        init(isbn, titre, dispo);
-        ErrorHandler.handleConstructorArgs(args);
+        try {
+            if (isbn == null || isbn.equals("")) throw new DonneesInvalidesException("Error: ISBN cannot not be Empty or null");
+            if (titre == null || titre.equals("")) throw new DonneesInvalidesException("");
+        } catch (BibliothequeException e) {
+            System.err.println(e.getMessage());
+        }
         this.isbn = isbn;
         this.titre = titre;
-        if (!auteur.equals("")) this.auteur = auteur;
+        if (!(auteur == null) && !auteur.equals("")) this.auteur = auteur;
         this.anneePubli = anneePubli;
         this.dispo = dispo;
     }
-
-    // Error Handler
-    private void init(String isbn, String titre, boolean dispo){
-        args.put("isbn", isbn);
-        args.put("titre", titre);
-        args.put("dispo", dispo);
-    }
-
-    
 
     // GETTER
     public String getIsbn(){
@@ -55,13 +48,20 @@ public class Livre {
 
     // SETTER
     public void setIsbn(String isbn){
-        ErrorHandler.handleConstructorArgs(Map.of("isbn", isbn));
+        try {
+            if (isbn == null || isbn.equals("")) throw new DonneesInvalidesException(null);
+        } catch (DonneesInvalidesException e) {
+            System.err.println(e.getMessage());
+        }
         this.isbn = isbn;
     }
     
     public void setTitre(String titre){
-        ErrorHandler.handleConstructorArgs(Map.of("titre", titre));
-        this.titre = titre;
+        try {
+            if (titre == null || titre.equals("")) throw new DonneesInvalidesException(null);
+        } catch (DonneesInvalidesException e) {
+            System.err.println(e.getMessage());
+        }        this.titre = titre;
     }
 
     public void setAuteur(String auteur){
@@ -73,7 +73,6 @@ public class Livre {
     }
 
     public void setDispo(boolean dispo){
-        ErrorHandler.handleConstructorArgs(Map.of("dispo", dispo));
         this.dispo = dispo;
     }
 

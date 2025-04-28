@@ -1,5 +1,7 @@
 package com.humanbooster.exercices;
 
+import com.humanbooster.exception.LivreDejaEmprunteException;
+import com.humanbooster.exception.LivreNonDisponibleException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -54,7 +56,17 @@ public class Bibliotheque {
 
     public boolean emprunterLivre(String isbn){
         Livre livre = rechercherLivre(isbn);
-        if (livre == null || !livre.dispo || emprunts.containsKey(isbn)) return false;
+        if (livre == null) return false;
+        try {
+            if(!livre.dispo) throw new LivreNonDisponibleException(null);
+        } catch (LivreNonDisponibleException e) {
+            System.err.println(e.getMessage());
+        }
+        try {
+            if(emprunts.containsKey(isbn)) throw new LivreDejaEmprunteException(null);
+        } catch (LivreDejaEmprunteException e) {
+            System.err.println(e.getMessage());
+        }
         emprunts.put(isbn, LocalDate.now());
         livre.setDispo(false);
         return true;
