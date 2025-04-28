@@ -28,9 +28,6 @@ public class Livre {
         args.put("isbn", isbn);
         args.put("titre", titre);
         args.put("dispo", dispo);
-        args.forEach((k,v) -> {
-            System.out.println("K: " + k + "\nV: " + v);
-        });
     }
 
     
@@ -96,7 +93,7 @@ public class Livre {
 
     @Override
     public String toString(){
-        return ("ISBN: " + this.isbn + "\nTitre: " + this.titre + "\nAuteur: " + this.auteur + "\nPublication: " + this.anneePubli + "\nDisponible " + this.dispo + "\n");
+        return ("\nISBN: " + this.isbn + "\nTitre: " + this.titre + "\nAuteur: " + this.auteur + "\nPublication: " + this.anneePubli + "\nDisponible " + this.dispo + "\n");
     }
     // - toString() pour l'affichage
 
