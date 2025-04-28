@@ -11,12 +11,20 @@ public class Bibliotheque {
     private Map<String, LocalDate> emprunts = new HashMap<>();
 
     // METHODS
-    public void ajouterLivre(Livre l){
-        this.livres.add(l);
+    public boolean ajouterLivre(Livre l){
+        if (l == null || livres.contains(l)) return false;
+        return this.livres.add(l);
     }
 
-    public void supprimerLivre(Livre l){
-        livres.removeIf((livre) -> livre.equals(l));
+    // public void supprimerLivre(Livre l){
+        // livres.removeIf((livre) -> livre.equals(l));
+    public boolean supprimerLivre(String isbn){
+        Livre livre = livres.stream()
+                .filter(l -> l.getIsbn().equals(isbn))
+                .findFirst()
+                .orElse(null);
+        if (livre == null) return false;
+        return livres.remove(livre);
     }
 
     public List<Livre> rechercherLivre(Livre l){
