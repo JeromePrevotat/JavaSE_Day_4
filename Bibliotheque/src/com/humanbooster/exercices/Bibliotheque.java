@@ -1,15 +1,14 @@
 package com.humanbooster.exercices;
 
-import java.time.Instant;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Bibliotheque {
-    public List<Livre> livres = new ArrayList<>();
-    public Map<String, Date> emprunts = new HashMap<>();
+    private List<Livre> livres = new ArrayList<>();
+    private Map<String, LocalDate> emprunts = new HashMap<>();
 
     // METHODS
     public void ajouterLivre(Livre l){
@@ -34,7 +33,7 @@ public class Bibliotheque {
 
     public void emprunterLivre(Livre l){
         if (l.getDispo() == true){
-            emprunts.put(l.getIsbn(), Date.from(Instant.now()));
+            emprunts.put(l.getIsbn(), LocalDate.now());
             l.setDispo(false);
         }
         else System.out.println("Le Livre n'est pas disponible");

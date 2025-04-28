@@ -1,6 +1,7 @@
 package com.humanbooster.exercices;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Livre {
     // - Attributs :
@@ -82,11 +83,15 @@ public class Livre {
     // METHODS
     @Override
     public boolean equals(Object l){
-        if (l instanceof Livre){
-            if (this.isbn.hashCode() == ((Livre) l).isbn.hashCode()) return true;
-        }
-        else throw new IllegalArgumentException("Error: Passer un Livre en parametre.");
-        return false;
+        if (this == l) return true;
+        if (l == null || getClass() != l.getClass()) return false;
+        Livre livre = (Livre) l;
+        return Objects.equals(this.isbn, livre.isbn);
+        // if (l instanceof Livre){
+        //     if (this.isbn.hashCode() == ((Livre) l).isbn.hashCode()) return true;
+        // }
+        // else throw new IllegalArgumentException("Error: Passer un Livre en parametre.");
+        // return false;
     }
 
     @Override
