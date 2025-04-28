@@ -14,7 +14,7 @@ public class Livre {
 
     public Livre(String isbn, String titre, String auteur, int anneePubli, boolean dispo){
         init(isbn, titre, dispo);
-        errorHandler(args);
+        ErrorHandler.handleConstructorArgs(args);
         this.isbn = isbn;
         this.titre = titre;
         if (!auteur.equals("")) this.auteur = auteur;
@@ -32,13 +32,7 @@ public class Livre {
         });
     }
 
-    private void errorHandler(Map<String, Object> args) throws IllegalArgumentException {
-        args.forEach((k,v) -> {
-            if (k.equals("isbn") && (v.equals("") || v == null)) throw new IllegalArgumentException("Error: ISBN cannot not be Empty");
-            if (k.equals("titre") && (v.equals("") || v == null)) throw new IllegalArgumentException("Error: Titre cannot not be Empty");
-            if (k.equals("dispo") && (v == null)) throw new IllegalArgumentException("Error: Dispo must be true or false");
-        });
-    }
+    
 
     // GETTER
     public String getIsbn(){
@@ -63,12 +57,12 @@ public class Livre {
 
     // SETTER
     public void setIsbn(String isbn){
-        errorHandler(Map.of("isbn", isbn));
+        ErrorHandler.handleConstructorArgs(Map.of("isbn", isbn));
         this.isbn = isbn;
     }
     
     public void setTitre(String titre){
-        errorHandler(Map.of("titre", titre));
+        ErrorHandler.handleConstructorArgs(Map.of("titre", titre));
         this.titre = titre;
     }
 
@@ -81,7 +75,7 @@ public class Livre {
     }
 
     public void setDispo(boolean dispo){
-        errorHandler(Map.of("dispo", dispo));
+        ErrorHandler.handleConstructorArgs(Map.of("dispo", dispo));
         this.dispo = dispo;
     }
 
