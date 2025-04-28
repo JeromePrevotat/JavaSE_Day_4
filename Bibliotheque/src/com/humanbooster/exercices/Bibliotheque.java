@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Bibliotheque {
     private List<Livre> livres = new ArrayList<>();
@@ -73,22 +74,34 @@ public class Bibliotheque {
         return true;
     }
 
+    // public List<Livre> getLivresDisponibles(){
+    //     List<Livre> livresDispo = new ArrayList<>();
+    //     livres.forEach((livre) -> {
+    //         if (livre.getDispo()) livresDispo.add(livre);
+    //     });
+    //     return livresDispo;
+    // }
+
     public List<Livre> getLivresDisponibles(){
-        List<Livre> livresDispo = new ArrayList<>();
-        livres.forEach((livre) -> {
-            if (livre.getDispo()) livresDispo.add(livre);
-        });
-        return livresDispo;
+        return livres.stream()
+                    .filter(Livre::getDispo)
+                    .collect(Collectors.toList());
     }
 
-    public List<Livre> getLivresEmprunte(){
-        List<Livre> livresEmprunte = new ArrayList<>();
+    // public List<Livre> getLivresEmprunte(){
+    //     List<Livre> livresEmprunte = new ArrayList<>();
         
-        emprunts.forEach((livreIsbn,date) -> {
-            livres.forEach((l) -> {
-                if(livreIsbn.equals(l.isbn)) livresEmprunte.add(l);
-            });
-        });
-        return livresEmprunte;
+    //     emprunts.forEach((livreIsbn,date) -> {
+    //         livres.forEach((l) -> {
+    //             if(livreIsbn.equals(l.isbn)) livresEmprunte.add(l);
+    //         });
+    //     });
+    //     return livresEmprunte;
+    // }
+
+    public List<Livre> getLivresEmprunte(){
+        return livres.stream()
+                    .filter(l -> !l.getDispo())
+                    .collect(Collectors.toList());
     }
 }
