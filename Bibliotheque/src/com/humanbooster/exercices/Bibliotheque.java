@@ -58,7 +58,7 @@ public class Bibliotheque {
         Livre livre = rechercherLivre(isbn);
         if (livre == null) return false;
         try {
-            if(!livre.dispo) throw new LivreNonDisponibleException(null);
+            if(!livre.getDispo()) throw new LivreNonDisponibleException(null);
         } catch (LivreNonDisponibleException e) {
             System.err.println(e.getMessage());
         }

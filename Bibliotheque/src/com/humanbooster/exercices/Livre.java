@@ -1,26 +1,21 @@
 package com.humanbooster.exercices;
-import com.humanbooster.exception.BibliothequeException;
 import com.humanbooster.exception.DonneesInvalidesException;
 import java.util.Objects;
 
 public class Livre {
     // - Attributs :
-    public String isbn;
-    public String titre;
-    public String auteur = "Anonyme";
-    public int anneePubli;
-    public boolean dispo;
+    private String isbn;
+    private String titre;
+    private String auteur = "Anonyme";
+    private int anneePubli;
+    private boolean dispo;
 
-    public Livre(String isbn, String titre, String auteur, int anneePubli, boolean dispo){
-        try {
-            if (isbn == null || isbn.equals("")) throw new DonneesInvalidesException("Error: ISBN cannot not be Empty or null");
-            if (titre == null || titre.equals("")) throw new DonneesInvalidesException("");
-        } catch (BibliothequeException e) {
-            System.err.println(e.getMessage());
-        }
+    public Livre(String isbn, String titre, String auteur, int anneePubli, boolean dispo) throws DonneesInvalidesException{
+        if (isbn == null || isbn.trim().equals("")) throw new DonneesInvalidesException("Error: ISBN cannot not be Empty or null");
+        if (titre == null || titre.trim().equals("")) throw new DonneesInvalidesException("");
         this.isbn = isbn;
         this.titre = titre;
-        if (!(auteur == null) && !auteur.equals("")) this.auteur = auteur;
+        if (!(auteur == null) && !auteur.trim().equals("")) this.auteur = auteur;
         this.anneePubli = anneePubli;
         this.dispo = dispo;
     }
@@ -47,21 +42,14 @@ public class Livre {
     }
 
     // SETTER
-    public void setIsbn(String isbn){
-        try {
-            if (isbn == null || isbn.equals("")) throw new DonneesInvalidesException(null);
-        } catch (DonneesInvalidesException e) {
-            System.err.println(e.getMessage());
-        }
+    public void setIsbn(String isbn) throws DonneesInvalidesException{
+        if (isbn == null || isbn.trim().equals("")) throw new DonneesInvalidesException(null);
         this.isbn = isbn;
     }
     
-    public void setTitre(String titre){
-        try {
-            if (titre == null || titre.equals("")) throw new DonneesInvalidesException(null);
-        } catch (DonneesInvalidesException e) {
-            System.err.println(e.getMessage());
-        }        this.titre = titre;
+    public void setTitre(String titre) throws DonneesInvalidesException{
+        if (titre == null || titre.trim().equals("")) throw new DonneesInvalidesException(null);
+        this.titre = titre;
     }
 
     public void setAuteur(String auteur){

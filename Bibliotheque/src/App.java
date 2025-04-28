@@ -1,25 +1,29 @@
+import com.humanbooster.exception.BibliothequeException;
+import com.humanbooster.exception.Logger;
 import com.humanbooster.exercices.Bibliotheque;
 import com.humanbooster.exercices.Livre;
 
 public class App {
     public static void main(String[] args) throws Exception {
         // Creation des Livres
-        Livre l1 = new Livre("1", "AAA", "aaa", 2000, true);
-        Livre l2 = new Livre("2", "BBB", "bbb", 2000, true);
-        Livre l3 = new Livre("3", "CCC", "ccc", 2000, true);
-        Livre l4 = new Livre("4", "DDD", "ddd", 2000, true);
-        Livre l5 = new Livre("5", "EEE", "eee", 2000, true);
-        Livre l6 = new Livre("3", "CCC", "ccc", 2000, true);
-        Livre l7 = new Livre("3", "CCC", "ccc", 2000, true);
-        Livre l8 = new Livre("6", "H2G2", "Douglas Adams", 2000, true);
-
+        
         //Aberrants
-        // Livre l9 = new Livre("", "H2G2", "Douglas Adams", 2000, true);
-        // Livre l10 = new Livre("10", "", "Douglas Adams", 2000, true);
-        Livre l11 = new Livre("11", "H2G2", "", 2000, true);
-        Livre l12 = new Livre("12", "H2G2", "Douglas Adams", 2000, true);
+        try {
+            Livre l1 = new Livre("1", "AAA", "aaa", 2000, true);
+            Livre l2 = new Livre("2", "BBB", "bbb", 2000, true);
+            Livre l3 = new Livre("3", "CCC", "ccc", 2000, true);
+            Livre l4 = new Livre("4", "DDD", "ddd", 2000, true);
+            Livre l5 = new Livre("5", "EEE", "eee", 2000, true);
+            Livre l6 = new Livre("3", "CCC", "ccc", 2000, true);
+            Livre l7 = new Livre("3", "CCC", "ccc", 2000, true);
+            Livre l8 = new Livre("6", "H2G2", "Douglas Adams", 2000, true);
+            Livre l9 = new Livre("", "H2G2", "Douglas Adams", 2000, true);
+            
+            // Livre l10 = new Livre("10", "", "Douglas Adams", 2000, true);
+            Livre l11 = new Livre("11", "H2G2", "", 2000, true);
+            Livre l12 = new Livre("12", "H2G2", "Douglas Adams", 2000, true);
 
-        // AJout des Livres a la Bibliothèque
+            // Ajout des Livres a la Bibliothèque
         Bibliotheque b = new Bibliotheque();
         b.ajouterLivre(l1);
         b.ajouterLivre(l2);
@@ -29,6 +33,7 @@ public class App {
         b.ajouterLivre(l6);
         b.ajouterLivre(l7);
         b.ajouterLivre(l8);
+        b.ajouterLivre(l9);
 
         // Aberant
         // b.ajouterLivre(l9);
@@ -61,5 +66,12 @@ public class App {
         System.out.println("\nLIVRES DISPO: " + b.getLivresDisponibles());
         // Afficher la Liste des Emprunts (last check)
         System.out.println("\nLIVRES EMPRUNTES: " + b.getLivresEmprunte());
+
+        } catch (BibliothequeException e) {
+            Logger.displayLogs(e, false, 2);
+            // System.err.println(e.getMessage());
+        }
+
+        
     }
 }
